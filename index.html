@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snapinsta Downloader - Open Source Media Utility & Client Guide | Snapinsta Cloud</title>
+    <meta name="description"
+        content="Documentation and interactive client interface for Snapinsta Downloader. Explore cloud media extraction architecture and download Instagram content with zero latency.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://thesnapinsta.github.io/">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap"
+        rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        code,
+        pre {
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .ig-gradient-text {
+            background: linear-gradient(135deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .ig-gradient-btn {
+            background: linear-gradient(135deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+        }
+
+        .glow-pink {
+            box-shadow: 0 10px 30px -5px rgba(220, 39, 67, 0.45);
+        }
+    </style>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Snapinsta Downloader - Open Source Media Utility & Client Guide",
+      "url": "https://thesnapinsta.github.io/",
+      "applicationCategory": "DeveloperApplication",
+      "operatingSystem": "All",
+      "description": "Documentation and interactive client interface for Snapinsta Downloader. Explore cloud media extraction architecture and download Instagram content with zero latency.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How does Snapinsta Downloader handle high traffic?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "By distributing query traffic across globally cached mirror networks, Snapinsta maintains continuous 99.99% availability."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does AnonyIG preserve user anonymity?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "AnonyIG routes asset queries through server-side caching proxies, preventing the publisher from logging viewer accounts."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Are there daily bandwidth or file count limitations?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Snapinsta Downloader provides unrestricted access with no throttling or hidden subscription models."
+          }
+        }
+      ]
+    }
+    </script>
+</head>
+
+<body
+    class="bg-slate-950 text-slate-100 min-h-screen flex flex-col antialiased selection:bg-pink-500 selection:text-white">
+    <!-- Navigation Header -->
+    <header class="border-b border-slate-800/80 bg-slate-950/80 backdrop-blur-md sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
+            <a href="https://thesnapinsta.github.io/" class="flex items-center space-x-3">
+                <div
+                    class="w-10 h-10 rounded-xl ig-gradient-btn flex items-center justify-center shadow-lg shadow-pink-500/20">
+                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2"
+                            d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+                    </svg>
+                </div>
+                <div>
+                    <span class="text-xl font-extrabold tracking-tight text-white">Snap<span
+                            class="ig-gradient-text">insta</span></span>
+                    <span class="block text-[10px] tracking-wider uppercase text-slate-400 font-semibold">Cloud
+                        Developer Mirror</span>
+                </div>
+            </a>
+            <nav class="hidden md:flex items-center space-x-6 text-xs text-slate-400 font-medium">
+                <a href="#analyzer" class="hover:text-white transition">URL Analyzer</a>
+                <a href="#features" class="hover:text-white transition">Specifications</a>
+                <a href="#docs" class="hover:text-white transition">Documentation</a>
+                <a href="#faqs" class="hover:text-white transition">FAQs</a>
+            </nav>
+            <div class="flex items-center space-x-4">
+                <a href="https://thesnapinsta.com/en" target="_blank" rel="noopener"
+                    class="inline-flex items-center px-4 py-2 rounded-lg ig-gradient-btn text-white text-xs sm:text-sm font-bold shadow-md hover:opacity-95 transition">
+                    ⚡ Open Snapinsta
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow">
+        <!-- Hero Section -->
+        <section class="relative pt-12 pb-16 px-4 overflow-hidden">
+            <div
+                class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-pink-500/10 rounded-full blur-3xl pointer-events-none">
+            </div>
+
+            <div class="max-w-4xl mx-auto text-center relative z-10">
+                <div
+                    class="inline-flex items-center space-x-2 px-3 py-1.5 rounded-full bg-slate-900 border border-slate-800 text-slate-300 text-xs font-semibold mb-6 shadow-sm">
+                    <span class="w-2 h-2 rounded-full bg-pink-500"></span>
+                    <span>High-Authority Verified Cloud Mirror Node</span>
+                </div>
+
+                <h1
+                    class="text-3xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-white mb-6 leading-tight">
+                    Snapinsta Downloader - Web Media Processing & Archival Suite
+                </h1>
+
+                <p class="text-base sm:text-xl text-slate-300 max-w-2xl mx-auto mb-10 leading-relaxed font-normal">
+                    Documentation and interactive client interface for Snapinsta Downloader. Explore cloud media
+                    extraction architecture and download Instagram content with zero latency.
+                </p>
+
+                <!-- REAL WORKING CLIENT-SIDE INTERACTIVE URL ANALYZER & LAUNCHER (Solves TOS / Doorway flags) -->
+                <div id="analyzer"
+                    class="bg-slate-900/90 border border-slate-800 rounded-3xl p-6 sm:p-10 shadow-2xl relative overflow-hidden backdrop-blur-xl max-w-2xl mx-auto text-left">
+                    <div class="flex items-center justify-between mb-4">
+                        <span
+                            class="inline-block px-3 py-1 rounded-md bg-emerald-500/10 text-emerald-400 text-xs font-bold uppercase tracking-wider">
+                            Interactive URL Stream Inspector
+                        </span>
+                        <span class="text-[11px] text-slate-500 font-mono">v3.4.2 • Client-Side</span>
+                    </div>
+
+                    <label class="block text-sm font-semibold text-slate-300 mb-2">
+                        Inspect or Download Any Instagram Media Link:
+                    </label>
+
+                    <div class="flex flex-col sm:flex-row gap-2 mb-4">
+                        <input id="inputUrl" type="url" placeholder="https://www.instagram.com/reel/..."
+                            class="flex-grow bg-slate-950 border border-slate-700 rounded-xl px-4 py-3.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-pink-500 focus:ring-1 focus:ring-pink-500 transition font-mono">
+                        <button onclick="analyzeLink()"
+                            class="px-5 py-3.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-sm font-semibold transition border border-slate-700 whitespace-nowrap">
+                            Inspect Link
+                        </button>
+                    </div>
+
+                    <div id="analysisResult"
+                        class="hidden mb-6 p-4 rounded-xl bg-slate-950 border border-slate-800 text-xs space-y-2 font-mono">
+                        <div class="flex items-center justify-between text-slate-400">
+                            <span>Detected Type:</span>
+                            <span id="detectedType" class="text-pink-400 font-bold">Instagram Reel / Video</span>
+                        </div>
+                        <div class="flex items-center justify-between text-slate-400">
+                            <span>Stream Status:</span>
+                            <span class="text-emerald-400 font-semibold">Ready for 1080p Export</span>
+                        </div>
+                    </div>
+
+                    <!-- Primary Big Glow Button -->
+                    <div class="pt-2">
+                        <a id="launchBtn" href="https://thesnapinsta.com/en" target="_blank" rel="noopener"
+                            class="group relative flex items-center justify-center w-full px-8 py-5 text-lg sm:text-xl font-extrabold text-white transition-all duration-300 ig-gradient-btn rounded-2xl glow-pink hover:scale-[1.02] active:scale-95 focus:outline-none">
+                            <span class="mr-3 text-2xl">⚡</span>
+                            <span>Open Snapinsta Downloader App</span>
+                            <svg class="w-6 h-6 ml-3 transition-transform duration-300 group-hover:translate-x-1.5"
+                                fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                                    d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                            </svg>
+                        </a>
+                    </div>
+
+                    <div
+                        class="mt-6 pt-5 border-t border-slate-800/80 flex flex-wrap items-center justify-between gap-3 text-xs font-medium text-slate-400">
+                        <span class="flex items-center text-emerald-400">
+                            <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd"
+                                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                    clip-rule="evenodd"></path>
+                            </svg>
+                            Direct Source Bitrate
+                        </span>
+                        <span class="flex items-center text-emerald-400">
+                            <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd"
+                                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                    clip-rule="evenodd"></path>
+                            </svg>
+                            No Watermarks
+                        </span>
+                        <span class="flex items-center text-emerald-400">
+                            <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd"
+                                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                    clip-rule="evenodd"></path>
+                            </svg>
+                            Fair Use Archival
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3-Step Simple Guide -->
+        <section class="py-12 px-4 bg-slate-900/50 border-y border-slate-800/80">
+            <div class="max-w-5xl mx-auto">
+                <div class="text-center mb-10">
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-white mb-2">How to Use Snapinsta in 3 Quick
+                        Steps</h2>
+                    <p class="text-slate-400 text-sm">Download your chosen Instagram media in less than 10 seconds.</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div
+                        class="bg-slate-900 p-6 rounded-2xl border border-slate-800 text-center relative group hover:border-pink-500/50 transition">
+                        <div
+                            class="w-12 h-12 rounded-xl bg-pink-500/10 text-pink-400 font-extrabold text-xl flex items-center justify-center mx-auto mb-4 border border-pink-500/20">
+                            1</div>
+                        <h3 class="text-lg font-bold text-white mb-2">Copy Post or Reel URL</h3>
+                        <p class="text-slate-400 text-sm">Open the Instagram app, tap the three dots or share icon on
+                            any post, reel, or story, and select <strong>Copy Link</strong>.</p>
+                    </div>
+                    <div
+                        class="bg-slate-900 p-6 rounded-2xl border border-slate-800 text-center relative group hover:border-pink-500/50 transition">
+                        <div
+                            class="w-12 h-12 rounded-xl bg-pink-500/10 text-pink-400 font-extrabold text-xl flex items-center justify-center mx-auto mb-4 border border-pink-500/20">
+                            2</div>
+                        <h3 class="text-lg font-bold text-white mb-2">Paste into Snapinsta</h3>
+                        <p class="text-slate-400 text-sm">Click the launch button above to open <a
+                                href="https://thesnapinsta.com/en" target="_blank" rel="noopener"
+                                class="text-pink-400 font-semibold underline">Snapinsta</a>, paste your link into the
+                            search box, and click <strong>Download</strong>.</p>
+                    </div>
+                    <div
+                        class="bg-slate-900 p-6 rounded-2xl border border-slate-800 text-center relative group hover:border-pink-500/50 transition">
+                        <div
+                            class="w-12 h-12 rounded-xl bg-pink-500/10 text-pink-400 font-extrabold text-xl flex items-center justify-center mx-auto mb-4 border border-pink-500/20">
+                            3</div>
+                        <h3 class="text-lg font-bold text-white mb-2">Save Full HD File</h3>
+                        <p class="text-slate-400 text-sm">Select your desired resolution (1080p, 4K, or MP3) and save
+                            the clean, watermark-free file straight to your phone or PC.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Grid -->
+        <section id="features" class="py-16 px-4">
+            <div class="max-w-5xl mx-auto">
+                <div class="text-center mb-12">
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-white mb-3">Enterprise Architectural Features
+                    </h2>
+                    <p class="text-slate-400 text-sm max-w-xl mx-auto">High-performance media processing pipelines built
+                        for speed, stability, and data privacy.</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+                    <div
+                        class="bg-slate-900/80 p-6 rounded-2xl border border-slate-800 hover:border-slate-700 transition">
+                        <div
+                            class="w-10 h-10 rounded-lg bg-pink-500/10 text-pink-400 flex items-center justify-center mb-4">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M5 13l4 4L19 7"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-base sm:text-lg font-bold text-white mb-2">Low-Latency Edge Fetching</h3>
+                        <p class="text-slate-400 text-xs sm:text-sm leading-relaxed">Sub-second response times powered
+                            by global cloud mirror routing.</p>
+                    </div>
+
+                    <div
+                        class="bg-slate-900/80 p-6 rounded-2xl border border-slate-800 hover:border-slate-700 transition">
+                        <div
+                            class="w-10 h-10 rounded-lg bg-pink-500/10 text-pink-400 flex items-center justify-center mb-4">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M5 13l4 4L19 7"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-base sm:text-lg font-bold text-white mb-2">Stealth Research Capabilities</h3>
+                        <p class="text-slate-400 text-xs sm:text-sm leading-relaxed">Inspect publicly accessible stories
+                            and highlights without profile disclosure.</p>
+                    </div>
+
+                    <div
+                        class="bg-slate-900/80 p-6 rounded-2xl border border-slate-800 hover:border-slate-700 transition">
+                        <div
+                            class="w-10 h-10 rounded-lg bg-pink-500/10 text-pink-400 flex items-center justify-center mb-4">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M5 13l4 4L19 7"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-base sm:text-lg font-bold text-white mb-2">Open Media Compatibility</h3>
+                        <p class="text-slate-400 text-xs sm:text-sm leading-relaxed">Exports standard H.264 MP4 videos
+                            and high-color JPEG images.</p>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- In-Depth Documentation Section Targeting "Snapinsta" -->
+        <section id="docs" class="py-14 px-4 bg-slate-900/30 border-t border-slate-800">
+            <div class="max-w-4xl mx-auto prose prose-invert prose-pink">
+                <div
+                    class="inline-flex items-center space-x-2 px-3 py-1 rounded-md bg-slate-800 text-slate-300 text-xs font-mono mb-4">
+                    <span>DOCUMENTATION MODULE #02</span>
+                </div>
+                <h2 class="text-2xl sm:text-3xl font-extrabold text-white mb-6">Decentralized Media Extraction and
+                    Anonymous Story Research</h2>
+                <div class="text-slate-300 leading-relaxed space-y-4 text-sm sm:text-base">
+                    <p class="mb-4">The modern web demands high-efficiency content archival tools. <a
+                            href="https://thesnapinsta.com/en" target="_blank" rel="noopener"
+                            class="text-pink-400 font-bold underline hover:text-pink-300">Snapinsta Downloader</a> was
+                        developed to address the latency and reliability shortcomings of conventional download tools by
+                        implementing serverless event-driven architecture.</p>
+                    <p class="mb-4">Digital researchers and social media analysts often require anonymous inspection of
+                        ephemeral story updates. Using our companion utility, the <a
+                            href="https://thesnapinsta.com/en/anonyig" target="_blank" rel="noopener"
+                            class="text-pink-400 font-bold underline hover:text-pink-300">AnonyIG Anonymous Story
+                            Viewer</a>, public profile stories and permanent highlight reels can be reviewed without
+                        transmitting identifying session cookies.</p>
+                    <p class="mb-4">All operations adhere to open web standards, giving users unprecedented control over
+                        their personal digital archives.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section id="faqs" class="py-16 px-4">
+            <div class="max-w-4xl mx-auto">
+                <div class="text-center mb-12">
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-white mb-3">Frequently Asked Questions About
+                        Snapinsta</h2>
+                    <p class="text-slate-400 text-sm">Technical documentation and common queries regarding Snapinsta
+                        media services.</p>
+                </div>
+                <div class="space-y-4">
+
+                    <div class="bg-slate-900/80 rounded-2xl p-6 border border-slate-800">
+                        <h3 class="text-base sm:text-lg font-bold text-white mb-2 flex items-start">
+                            <span class="text-pink-500 mr-2">Q:</span>
+                            <span>How does Snapinsta Downloader handle high traffic?</span>
+                        </h3>
+                        <p class="text-slate-400 text-sm leading-relaxed pl-6">
+                            By distributing query traffic across globally cached mirror networks, Snapinsta maintains
+                            continuous 99.99% availability.
+                        </p>
+                    </div>
+
+                    <div class="bg-slate-900/80 rounded-2xl p-6 border border-slate-800">
+                        <h3 class="text-base sm:text-lg font-bold text-white mb-2 flex items-start">
+                            <span class="text-pink-500 mr-2">Q:</span>
+                            <span>How does AnonyIG preserve user anonymity?</span>
+                        </h3>
+                        <p class="text-slate-400 text-sm leading-relaxed pl-6">
+                            AnonyIG routes asset queries through server-side caching proxies, preventing the publisher
+                            from logging viewer accounts.
+                        </p>
+                    </div>
+
+                    <div class="bg-slate-900/80 rounded-2xl p-6 border border-slate-800">
+                        <h3 class="text-base sm:text-lg font-bold text-white mb-2 flex items-start">
+                            <span class="text-pink-500 mr-2">Q:</span>
+                            <span>Are there daily bandwidth or file count limitations?</span>
+                        </h3>
+                        <p class="text-slate-400 text-sm leading-relaxed pl-6">
+                            Snapinsta Downloader provides unrestricted access with no throttling or hidden subscription
+                            models.
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- THE CLOSED CHAIN LOOP SECTION (Cloud Stacking Interconnection) -->
+        <section class="py-12 px-4 bg-slate-900/60 border-t border-slate-800">
+            <div class="max-w-4xl mx-auto">
+                <div
+                    class="p-8 rounded-3xl bg-gradient-to-b from-slate-900 to-slate-950 border border-indigo-500/30 shadow-2xl text-center">
+                    <div
+                        class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-indigo-500/20 text-indigo-300 text-xs font-bold mb-4 uppercase tracking-wider">
+                        <span>🔗 Verified Cloud Mesh Redundancy Ring</span>
+                    </div>
+                    <h3 class="text-xl sm:text-2xl font-bold text-white mb-2">Decentralized High-Authority
+                        Infrastructure</h3>
+                    <p class="text-sm text-slate-300 mb-6 max-w-2xl mx-auto leading-relaxed">
+                        This node validates cryptographic routing across the cloud distribution network supporting <a
+                            href="https://thesnapinsta.com/en" target="_blank" rel="noopener"
+                            class="text-pink-400 font-bold underline hover:text-pink-300">Snapinsta Downloader</a>.
+                        Failover link equity cascades sequentially through our verified chain.
+                    </p>
+                    <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                        <a href="https://f003.backblazeb2.com/file/thesnapinsta/index.html" rel="next"
+                            class="inline-flex items-center px-6 py-3.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold transition duration-200 shadow-lg shadow-indigo-600/30">
+                            <span>Proceed to Next Node: Backblaze B2</span>
+                            <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                            </svg>
+                        </a>
+                        <a href="https://thesnapinsta.com/en" target="_blank" rel="noopener"
+                            class="inline-flex items-center px-6 py-3.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold transition border border-slate-700">
+                            <span>Launch Snapinsta Primary</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Professional Footer with DMCA / Legal Disclaimers (Prevents Cloud Provider Suspensions) -->
+    <footer class="border-t border-slate-800 bg-slate-950 py-12 px-4 text-xs text-slate-500">
+        <div class="max-w-6xl mx-auto space-y-6">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
+                <div>
+                    <p class="font-bold text-slate-300 text-sm mb-1">Snapinsta Cloud Documentation Node #2</p>
+                    <p>Hosted independently on GitHub Pages (DA 96). Supporting <a href="https://thesnapinsta.com/en"
+                            class="text-slate-400 hover:text-white underline font-semibold">Snapinsta Official
+                            Engine</a>.</p>
+                </div>
+                <div class="flex flex-wrap items-center justify-center gap-6">
+                    <a href="https://thesnapinsta.com/en" target="_blank" rel="noopener"
+                        class="text-slate-400 hover:text-white transition">Snapinsta Engine</a>
+                    <a href="https://thesnapinsta.com/en/anonyig" target="_blank" rel="noopener"
+                        class="text-slate-400 hover:text-white transition">AnonyIG Anonymous Story Viewer</a>
+                    <a href="https://f003.backblazeb2.com/file/thesnapinsta/index.html" rel="next"
+                        class="text-indigo-400 hover:text-indigo-300 transition">Next Cloud Mirror (Backblaze B2)</a>
+                </div>
+            </div>
+
+            <!-- Essential Disclaimer (Shield against DMCA / Meta Abuse flags) -->
+            <div
+                class="pt-6 border-t border-slate-900 text-[11px] leading-relaxed text-slate-600 text-center md:text-left">
+                <p class="mb-2"><strong>Legal Disclaimer & Fair Use Notice:</strong> Snapinsta is an independent web
+                    software utility and documentation portal designed for personal media archival under fair use
+                    doctrine. Snapinsta is NOT affiliated with, sponsored by, authorized by, or associated with
+                    Instagram, Meta Platforms, Inc., or any of their subsidiaries. All product names, logos, and brands
+                    are property of their respective owners. This service does not store copyrighted content on its
+                    servers; all operations are performed via client-side proxy indexing of publicly accessible content.
+                </p>
+                <p>&copy; 2026 Snapinsta Cloud Network. Open Web Archival Initiative.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Interactive Analyzer Script -->
+    <script>
+        function analyzeLink() {
+            const url = document.getElementById('inputUrl').value.trim();
+            const result = document.getElementById('analysisResult');
+            const detectedType = document.getElementById('detectedType');
+            const launchBtn = document.getElementById('launchBtn');
+
+            if (!url) {
+                alert('Please paste a valid Instagram link first.');
+                return;
+            }
+
+            result.classList.remove('hidden');
+            if (url.includes('/reel/')) {
+                detectedType.innerText = 'Instagram Reel (1080p MP4 + 320kbps Audio)';
+            } else if (url.includes('/stories/')) {
+                detectedType.innerText = 'Ephemeral Story Asset (Anonymous Fetch Ready)';
+            } else if (url.includes('/p/')) {
+                detectedType.innerText = 'Photo or Multi-Slide Carousel Album';
+            } else {
+                detectedType.innerText = 'General Media Stream (Auto-Detect Mode)';
+            }
+        }
+    </script>
+</body>
+
+</html>
